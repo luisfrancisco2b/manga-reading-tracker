@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth-container" style="max-width: 600px;">
+    <h2>Editar Mangá</h2>
+
+    <form method="POST" action="{{ url_for('edit_manga', id=manga[0]) }}">
+        <div class="manga-form-grid">
+            <div class="form-group">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" value="{{ manga[2] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="autor">Autor:</label>
+                <input type="text" id="autor" name="autor" value="{{ manga[3] }}">
+            </div>
+            <div class="form-group">
+                <label for="data_lancamento">Data de Lançamento:</label>
+                <input type="date" id="data_lancamento" name="data_lancamento" value="{{ manga[4] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="capitulo">Capítulo:</label>
+                <input type="text" id="capitulo" name="capitulo" value="{{ manga[5] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="Em Andamento" {% if manga[6]=='Em Andamento' %}selected{% endif %}>Em Andamento</option>
+                    <option value="Finalizado" {% if manga[6]=='Finalizado' %}selected{% endif %}>Finalizado</option>
+                    <option value="Em Hiato" {% if manga[6]=='Em Hiato' %}selected{% endif %}>Em Hiato</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="manga-form-actions" style="margin-top: 2rem;">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary" style="text-decoration: none; text-align: center;">Cancelar</a>
+            <button type="submit" class="btn">Salvar Alterações</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

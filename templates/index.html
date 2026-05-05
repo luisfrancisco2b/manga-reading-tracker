@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="manga-header">
+    <h2>Meus Mangás</h2>
+
+    <div class="filter-section">
+        <label for="statusFilter">Status:</label>
+        <select id="statusFilter" onchange="filtrarManga(this.value)">
+            <option value="todos">Todos</option>
+            <option value="Em Andamento">Em Andamento</option>
+            <option value="Finalizado">Finalizado</option>
+            <option value="Em Hiato">Em Hiato</option>
+        </select>
+    </div>
+
+    <button onclick="toggleForm()" class="btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        Adicionar Mangá
+    </button>
+</div>
+
+<div id="addMangaForm" style="display: none;">
+    <form method="POST" action="{{ url_for('add_manga') }}">
+        <div class="manga-form-grid">
+            <div class="form-group">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" required>
+            </div>
+            <div class="form-group">
+                <label for="autor">Autor:</label>
+                <input type="text" id="autor" name="autor">
+            </div>
+            <div class="form-group">
+                <label for="data_lancamento">Data de Lançamento:</label>
+                <input type="date" id="data_lancamento" name="data_lancamento" required>
+            </div>
+            <div class="form-group">
+                <label for="capitulo">Capítulo:</label>
+                <input type="text" id="capitulo" name="capitulo" required>
+            </div>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="Em Andamento">Em Andamento</option>
+                    <option value="Finalizado">Finalizado</option>
+                    <option value="Em Hiato">Em Hiato</option>
+                </select>
+            </div>
+        </div>
+        <div class="manga-form-actions">
+            <button type="button" class="btn btn-secondary" onclick="toggleForm()">Cancelar</button>
+            <button type="submit" class="btn">Salvar Mangá</button>
+        </div>
+    </form>
+</div>
+
+<div class="manga-grid">
+    {% for manga in mangas %}
+    <div class="manga-card" data-status="{{ manga[6] }}">
+        <div class="manga-status {% if manga[6] == 'Em Andamento' %}status-andamento{% elif manga[6] == 'Finalizado' %}status-finalizado{% else %}status-hiato{% endif %}">
+            {{ manga[6] }}
+        </div>
+        
+        <h3 class="manga-title">{{ manga[2] }}</h3>
+        <p class="manga-author">{{ manga[3] }}</p>
+        
+        <div class="manga-details">
+            <div class="detail-item">
+                <span class="detail-label">Lançamento</span>
+                <span class="detail-value">{{ manga[4] }}</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Capítulo</span>
+                <span class="detail-value">{{ manga[5] }}</span>
+            </div>
+        </div>
+        
+        <div class="manga-actions">
+            <a href="{{ url_for('edit_manga', id=manga[0]) }}" class="btn btn-secondary btn-sm" style="flex: 1; text-align: center;">Editar</a>
+            <a href="{{ url_for('delete_manga', id=manga[0]) }}" onclick="return confirm('Tem certeza que deseja excluir?')" class="btn btn-danger btn-sm" style="flex: 1; text-align: center;">Excluir</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    function toggleForm() {
+        var form = document.getElementById('addMangaForm');
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function filtrarManga(status) {
+        const cards = document.querySelectorAll('.manga-card');
+        cards.forEach(card => {
+            const statusManga = card.getAttribute('data-status');
+            if (status === 'todos' || statusManga === status) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+</script>
+{% endblock %}

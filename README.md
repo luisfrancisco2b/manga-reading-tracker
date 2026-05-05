@@ -1,24 +1,101 @@
-# CRUD-mangá
+# 📚 Manga Reading Tracker (CRUD)
 
-Documentação: Sistema de Gerenciamento de Leitura de Mangás com CRUD
+Full-stack web application for managing manga reading progress, allowing users to create, view, update and delete manga entries.
 
-Funcionalidades
-O CRUD possibilita ao seu usuário a criação, leitura, atualização e exclusão de mangás que o mesmo leu. Ao adicionar um mangá é preciso informar seu nome, nome do autor, dia da leitura, respectivo capítulo e status (em andamento, hiato ou finalizado. Posteriormente, essas informações estarão visíveis ao usuário. Além disso, o usuário pode editar as informações que inseriu e também pode excluir essas informações dos mangás. O CRUD também conta com um filtro para localizar de forma mais rápida mangás que estão em andamento, hiato ou finalizado.
+---
 
-Tecnologias Utilizadas
-•	HTML (Linguagem de HiperTexto)
-•	CSS (Estilização)
-•	Java Script (Interação)
-•	Banco de Dados – SQLite
-•	Servidor Web – Framework Flask
+## 📌 About the Project
 
+This project is a CRUD system developed to help users track the mangas they have read, including relevant information such as title, author, reading date, chapter and status.
 
-Instalação dos componentes:
-Python: Acesse Python.org e realize o download
-Flask: abra o terminal e digite: pip install flask flask-sqlalchemy
-SQLite: esse banco de dado vem junto com o Python
+---
 
-Executando o Projeto
-No terminal do seu editor de código execute o seguinte comando: python app.py. Em seguida aparecerá esse link para abrir em seu navegador padrão para acessar o sistema : http://localhost:5000 . Clique nele e você será redirecionado à página.
+## ✨ Features
 
+- ➕ Add new manga entries  
+- 📖 View all registered mangas  
+- ✏️ Edit existing entries  
+- ❌ Delete entries  
+- 🔍 Filter mangas by status:
+  - Ongoing  
+  - Hiatus  
+  - Completed  
 
+---
+
+## 📸 UI Improvement (Before vs After)
+
+### 🔐 Login Screen
+
+**Before**  
+![Login Before](images/login-before.png)
+
+**After**  
+![Login After](images/login-after.png)
+
+---
+
+### 📚 Dashboard (Manga List)
+
+**Before**  
+![Dashboard Before](images/dashboard-before.png)
+
+**After**  
+![Dashboard After](images/dashboard-after.png)
+
+---
+
+## 🛠️ Technologies Used
+
+- **Frontend:** HTML, CSS, JavaScript  
+- **Backend:** Python (Flask)  
+- **Database:** SQLite  
+
+---
+
+## ⚙️ Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/luisfrancisco2b/CRUD-mang-
+```
+
+### 2. Navigate to the project folder
+
+```bash
+cd CRUD-mang-
+```
+
+### 3. Install dependencies
+
+```bash
+pip install flask flask-sqlalchemy
+```
+
+---
+
+## 🚀 Running the Project
+
+Run the following command:
+
+```bash
+python app.py
+```
+
+Then open your browser and access:
+
+http://localhost:5000
+
+---
+
+## 🤖 Development Approach
+
+This project was initially developed with the support of AI-assisted tools to accelerate learning and prototyping.  
+It has been improved with a focus on UI, usability and code organization.
+
+---
+
+## 👨‍💻 Author
+
+Luis Francisco
