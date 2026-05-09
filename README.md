@@ -1,4 +1,4 @@
-# 📚 Manga Reading Tracker (CRUD)
+# 📚 Manga Reading Tracker
 
 Full-stack web application for managing manga reading progress, allowing users to create, view, update and delete manga entries.
 
@@ -12,14 +12,14 @@ This project is a CRUD system developed to help users track the mangas they have
 
 ## ✨ Features
 
-- ➕ Add new manga entries  
-- 📖 View all registered mangas  
-- ✏️ Edit existing entries  
-- ❌ Delete entries  
+- ➕ Add new manga entries
+- 📖 View all registered mangas
+- ✏️ Edit existing entries
+- ❌ Delete entries
 - 🔍 Filter mangas by status:
-  - Ongoing  
-  - Hiatus  
-  - Completed  
+  - Ongoing
+  - Hiatus
+  - Completed
 
 ---
 
@@ -47,9 +47,9 @@ This project is a CRUD system developed to help users track the mangas they have
 
 ## 🛠️ Technologies Used
 
-- **Frontend:** HTML, CSS, JavaScript  
-- **Backend:** Python (Flask)  
-- **Database:** SQLite  
+- **Frontend:** HTML, CSS, JavaScript
+- **Backend:** Python (Flask)
+- **Database:** SQLite
 
 ---
 
@@ -58,7 +58,7 @@ This project is a CRUD system developed to help users track the mangas they have
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/luisfrancisco2b/CRUD-mang-
+git clone https://github.com/luisfrancisco2b/manga-reading-tracker
 ```
 
 ### 2. Navigate to the project folder
