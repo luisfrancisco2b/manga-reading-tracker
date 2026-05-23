@@ -41,7 +41,7 @@ def login():
             session['user_id'] = user[0]
             return redirect(url_for('index'))
         else:
-            flash('Email ou senha inválidos')
+            flash('Email ou senha inválidos', 'error')
         conn.close()
     return render_template('login.html')
 
@@ -56,10 +56,10 @@ def register():
         try:
             c.execute('INSERT INTO users (email, password) VALUES (?, ?)', (email, password))
             conn.commit()
-            flash('Conta criada com sucesso!')
+            flash('Conta criada com sucesso!', 'success')
             return redirect(url_for('login'))
         except sqlite3.IntegrityError:
-            flash('Email já cadastrado')
+            flash('Email já cadastrado', 'error')
         finally:
             conn.close()
     return render_template('register.html')
@@ -83,6 +83,7 @@ def add_manga():
                  (session['user_id'], titulo, autor, data_lancamento, capitulo, status))
         conn.commit()
         conn.close()
+        flash('Mangá adicionado com sucesso!', 'success')
         return redirect(url_for('index'))
 
 @app.route('/edit_manga/<int:id>', methods=['GET', 'POST'])
@@ -103,6 +104,7 @@ def edit_manga(id):
                  (titulo, autor, data_lancamento, capitulo, status, id, session['user_id']))
         conn.commit()
         conn.close()
+        flash('Mangá atualizado com sucesso!', 'success')
         return redirect(url_for('index'))
     
     conn = sqlite3.connect('manga_tracker.db')
@@ -120,6 +122,7 @@ def delete_manga(id):
     c.execute('DELETE FROM mangas WHERE id=? AND user_id=?', (id, session['user_id']))
     conn.commit()
     conn.close()
+    flash('Mangá excluído com sucesso!', 'success')
     return redirect(url_for('index'))
 
 @app.route('/logout')

@@ -111,6 +111,7 @@ nav {
     color: var(--text-primary);
     background: var(--accent-gradient);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -0.5px;
 }
@@ -149,6 +150,7 @@ nav {
     margin-bottom: 2rem;
     background: var(--accent-gradient);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -181,6 +183,10 @@ input, select {
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
     transition: var(--transition);
+}
+
+input:hover, select:hover {
+    border-color: var(--text-muted);
 }
 
 input:focus, select:focus {
@@ -226,6 +232,11 @@ button {
     transform: translateY(-2px);
 }
 
+.btn:active, button[type="submit"]:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
 .btn-secondary {
     background: transparent;
     border: 1px solid var(--border-color);
@@ -246,6 +257,7 @@ button {
 .btn-danger:hover {
     background: var(--danger-hover);
     box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+    color: white;
 }
 
 .btn-sm {
@@ -272,17 +284,38 @@ button {
     padding: 0.5rem 1rem;
     border-radius: var(--border-radius-md);
     border: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.filter-section:hover, .filter-section:focus-within {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+.filter-section label {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
 }
 
 .filter-section select {
     background-color: transparent;
+    color: var(--text-primary);
     border: none;
-    padding: 0.5rem 2rem 0.5rem 0;
+    padding: 0.5rem 2.5rem 0.5rem 0.5rem;
     width: auto;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
 }
 
 .filter-section select:focus {
     box-shadow: none;
+}
+
+.filter-section select option {
+    background-color: var(--card-bg);
+    color: var(--text-primary);
 }
 
 /* Add Manga Form Card */
@@ -329,7 +362,7 @@ button {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-lg);
-    padding: 1.5rem;
+    padding: 1.8rem;
     transition: var(--transition);
     display: flex;
     flex-direction: column;
@@ -338,9 +371,9 @@ button {
 }
 
 .manga-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-    border-color: rgba(139, 92, 246, 0.3);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-glow);
+    border-color: rgba(139, 92, 246, 0.5);
 }
 
 /* Status Badge Top Line */
@@ -438,6 +471,59 @@ button {
     border-radius: var(--border-radius-md);
     box-shadow: var(--shadow-lg);
     animation: slideInRight 0.3s ease-out;
+    transition: opacity 0.3s ease;
+}
+
+.flash-success {
+    border-left-color: var(--success);
+}
+
+.flash-error {
+    border-left-color: var(--danger);
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    max-width: 400px;
+    width: 90%;
+    animation: scaleUp 0.2s ease-out;
+}
+
+@keyframes scaleUp {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-content h3 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.modal-content p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
 }
 
 @keyframes slideInRight {
@@ -450,6 +536,7 @@ button {
     .manga-header {
         flex-direction: column;
         align-items: stretch;
+        gap: 1.2rem;
     }
     
     .manga-form-grid {
@@ -458,5 +545,6 @@ button {
     
     .filter-section {
         justify-content: space-between;
+        padding: 0.8rem 1rem;
     }
 }
