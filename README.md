@@ -1,6 +1,8 @@
 # 📚 Manga Reading Tracker
 
-Full-stack web application for managing manga reading progress, allowing users to create, view, update and delete manga entries.
+## 📌 About the Project
+
+This project is a full-stack CRUD application developed to help users track their manga reading progress. It includes user authentication, manga management features, filtering options and a responsive interface designed for both desktop and mobile devices.
 
 ---
 
@@ -20,6 +22,8 @@ This project is a CRUD system developed to help users track the mangas they have
   - Ongoing
   - Hiatus
   - Completed
+- 🔐 User authentication system
+- 📱 Responsive design for desktop and mobile devices
 
 ---
 
