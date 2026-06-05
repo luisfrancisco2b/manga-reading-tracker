@@ -64,7 +64,7 @@ git clone https://github.com/luisfrancisco2b/manga-reading-tracker
 ### 2. Navigate to the project folder
 
 ```bash
-cd CRUD-mang-
+cd manga-reading-tracker
 ```
 
 ### 3. Install dependencies
