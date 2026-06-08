@@ -20,11 +20,18 @@ def login_required(f):
 @login_required
 def index():
     conn = sqlite3.connect('manga_tracker.db')
+    conn.row_factory = sqlite3.Row
     c = conn.cursor()
     c.execute('SELECT * FROM mangas WHERE user_id = ?', (session['user_id'],))
     mangas = c.fetchall()
+    
+    # Obter nome do usuário
+    c.execute('SELECT nome FROM users WHERE id = ?', (session['user_id'],))
+    user = c.fetchone()
+    user_name = user['nome'] if user else 'Usuário'
+    
     conn.close()
-    return render_template('index.html', mangas=mangas)
+    return render_template('index.html', mangas=mangas, user_name=user_name)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -33,12 +40,14 @@ def login():
         password = request.form['password']
         
         conn = sqlite3.connect('manga_tracker.db')
+        conn.row_factory = sqlite3.Row
         c = conn.cursor()
         c.execute('SELECT * FROM users WHERE email = ?', (email,))
         user = c.fetchone()
         
-        if user and check_password_hash(user[2], password):
-            session['user_id'] = user[0]
+        if user and check_password_hash(user['password'], password):
+            session['user_id'] = user['id']
+            session['user_name'] = user['nome']
             return redirect(url_for('index'))
         else:
             flash('Email ou senha inválidos', 'error')
@@ -48,13 +57,14 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
+        nome = request.form['nome']
         email = request.form['email']
         password = generate_password_hash(request.form['password'])
         
         conn = sqlite3.connect('manga_tracker.db')
         c = conn.cursor()
         try:
-            c.execute('INSERT INTO users (email, password) VALUES (?, ?)', (email, password))
+            c.execute('INSERT INTO users (nome, email, password) VALUES (?, ?, ?)', (nome, email, password))
             conn.commit()
             flash('Conta criada com sucesso!', 'success')
             return redirect(url_for('login'))
@@ -63,6 +73,49 @@ def register():
         finally:
             conn.close()
     return render_template('register.html')
+
+@app.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form['email']
+        
+        conn = sqlite3.connect('manga_tracker.db')
+        conn.row_factory = sqlite3.Row
+        c = conn.cursor()
+        c.execute('SELECT * FROM users WHERE email = ?', (email,))
+        user = c.fetchone()
+        
+        if user:
+            # Em um projeto real, enviaríamos um email com link.
+            # Aqui vamos renderizar um template para redefinir a senha
+            conn.close()
+            return render_template('reset_password.html', email=email)
+        else:
+            flash('Email não encontrado em nossa base de dados.', 'error')
+            conn.close()
+            
+    return render_template('forgot_password.html')
+
+@app.route('/reset_password', methods=['POST'])
+def reset_password():
+    email = request.form['email']
+    new_password = request.form['new_password']
+    confirm_password = request.form['confirm_password']
+    
+    if new_password != confirm_password:
+        flash('As senhas não coincidem.', 'error')
+        return render_template('reset_password.html', email=email)
+        
+    hashed_password = generate_password_hash(new_password)
+    
+    conn = sqlite3.connect('manga_tracker.db')
+    c = conn.cursor()
+    c.execute('UPDATE users SET password = ? WHERE email = ?', (hashed_password, email))
+    conn.commit()
+    conn.close()
+    
+    flash('Senha alterada com sucesso! Faça login com sua nova senha.', 'success')
+    return redirect(url_for('login'))
 
 # Rotas CRUD para mangás
 @app.route('/add_manga', methods=['POST'])

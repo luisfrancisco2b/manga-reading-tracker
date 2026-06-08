@@ -74,6 +74,20 @@
                 window.location.href = confirmActionUrl;
             }
         });
+
+        // Toggle Password Visibility
+        function togglePassword(button) {
+            const input = button.previousElementSibling;
+            const icon = button.querySelector('svg');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><line x1="1" y1="1" x2="23" y2="23"></line>'; // eye-off
+            } else {
+                input.type = 'password';
+                icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>'; // eye
+            }
+        }
     </script>
 </body>
 </html> 

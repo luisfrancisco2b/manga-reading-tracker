@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="welcome-banner">
+    <div class="welcome-content">
+        <h2 id="greeting-title">Bem-vindo(a), <span class="highlight">{{ user_name }}</span>!</h2>
+        <p>Pronto(a) para continuar suas leituras?</p>
+    </div>
+</div>
+
 <div class="manga-header">
     <h2>Meus Mangás</h2>
 
@@ -101,5 +108,20 @@
             }
         });
     }
+    document.addEventListener('DOMContentLoaded', () => {
+        const hour = new Date().getHours();
+        let greeting = 'Boa noite';
+        if (hour >= 5 && hour < 12) {
+            greeting = 'Bom dia';
+        } else if (hour >= 12 && hour < 18) {
+            greeting = 'Boa tarde';
+        }
+        
+        const titleEl = document.getElementById('greeting-title');
+        if(titleEl) {
+            const userName = titleEl.querySelector('.highlight').textContent;
+            titleEl.innerHTML = `${greeting}, <span class="highlight">${userName}</span>!`;
+        }
+    });
 </script>
 {% endblock %}
